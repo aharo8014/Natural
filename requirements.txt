@@ -11,4 +11,4 @@ wordcloud
 textblob
 gensim
 pyLDAvis
-scipy
+scipy>=1.10,<1.12
