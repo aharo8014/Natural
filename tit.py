@@ -220,6 +220,16 @@ def seccion_2():
 from sklearn.decomposition import NMF
 from sklearn.manifold import TSNE
 
+def preprocess_text(text):
+    text = str(text).lower()
+    text = re.sub(r'\d+', '', text)  # quitar números
+    text = re.sub(f"[{re.escape(string.punctuation)}]", '', text)  # quitar puntuación
+    tokens = text.split()
+    stop_words = set(stopwords.words('english'))
+    lemmatizer = WordNetLemmatizer()
+    tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stop_words]
+    return ' '.join(tokens)
+
 def entrenar_nmf(textos, n_topics=5, max_features=5000):
     vectorizer = TfidfVectorizer(max_df=0.95, min_df=2,
                                  max_features=max_features,
